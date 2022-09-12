@@ -156,6 +156,13 @@ class ViewModel {
         win(0,3,6)
         win(1,4,7)
         win(2,5,8)
+        
+        for image in images {
+            
+            if image == nil {return}
+        }
+        
+        self.delegate?.showResult("Draw")
     }
     
     func clearBoard(_ board: UIStackView) {

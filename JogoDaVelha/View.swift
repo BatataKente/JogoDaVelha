@@ -75,8 +75,8 @@ class View: UIViewController {
         jogoDaVelhaStackView.constraint(to: view.safeAreaLayoutGuide, by: [.leading,.trailing])
         jogoDaVelhaStackView.constraint(to: jogoDaVelhaStackView, with: [.height:.width])
         
-        resultButton.constraint(to: jogoDaVelhaStackView, with: [.top:.bottom], constant: view.frame.size.height/16)
-        resultButton.constraint(to: jogoDaVelhaStackView, by: [.leading,.trailing])
+        resultButton.constraint(to: jogoDaVelhaStackView, with: [.top:.bottom])
+        resultButton.constraint(to: view.safeAreaLayoutGuide, by: [.leading,.trailing,.bottom])
     }
     
     @objc func resultTarget(_ sender: UIButton) {
