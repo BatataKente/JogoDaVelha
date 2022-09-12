@@ -100,6 +100,7 @@ class ViewModel {
         
         return buttons
     }
+    
     private func boardState(_ board: UIStackView) -> [Int] {
         
         var boardState:[Int] = []
@@ -116,7 +117,9 @@ class ViewModel {
         return boardState
     }
     
-    private func game(_ board: UIStackView, playerSelection: UIImage?, cpuSelection: UIImage?) -> Bool {
+    private func game(_ board: UIStackView,
+                      playerSelection: UIImage?,
+                      cpuSelection: UIImage?) -> Bool {
         
         var images:[UIImage?] = []
         let buttons:[UIButton] = verifyButtons(of: board)
