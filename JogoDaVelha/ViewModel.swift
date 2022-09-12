@@ -116,7 +116,7 @@ class ViewModel {
         return boardState
     }
     
-    private func game(_ board: UIStackView, playerSelection: UIImage?, cpuSelection: UIImage?) {
+    private func game(_ board: UIStackView, playerSelection: UIImage?, cpuSelection: UIImage?) -> Bool {
         
         var images:[UIImage?] = []
         let buttons:[UIButton] = verifyButtons(of: board)
@@ -126,43 +126,45 @@ class ViewModel {
             images.append(button.currentImage)
         }
         
-        let win = {(i: Int,j: Int,k: Int) in
+        let win = {(i: Int,j: Int,k: Int) -> Bool in
             
             if images[i] == images[j] && images[j] == images[k] && images[i] != nil && images[j] != nil && images[k] != nil {
                 
                 board.isUserInteractionEnabled = false
                 
-                guard let playerSelection = playerSelection else {return}
+                guard let playerSelection = playerSelection else {return false}
                 if images[i] == playerSelection {
                     
                     self.delegate?.showResult("You Win")
-                    return
+                    return true
                 }
                 else if images[i] == cpuSelection {
                     
                     self.delegate?.showResult("You Lose")
-                    return
+                    return true
                 }
             }
+            return false
         }
                       
-        win(0,1,2)
-        win(3,4,5)
-        win(6,7,8)
+        if win(0,1,2) {return true}
+        if win(3,4,5) {return true}
+        if win(6,7,8) {return true}
         
-        win(0,4,8)
-        win(2,4,6)
+        if win(0,4,8) {return true}
+        if win(2,4,6) {return true}
         
-        win(0,3,6)
-        win(1,4,7)
-        win(2,5,8)
+        if win(0,3,6) {return true}
+        if win(1,4,7) {return true}
+        if win(2,5,8) {return true}
         
         for image in images {
             
-            if image == nil {return}
+            if image == nil {return false}
         }
         
         self.delegate?.showResult("Draw")
+        return true
     }
     
     func clearBoard(_ board: UIStackView) {
@@ -176,7 +178,11 @@ class ViewModel {
     }
 
     func cpuPlay(_ board: UIStackView) {
-
+        
+        if game(board,
+                playerSelection: playerSelection,
+                cpuSelection: cpuSelection) {return}
+        
         let boardState:[Int] = boardState(board)
 
         if boardState != [] {
@@ -195,8 +201,8 @@ class ViewModel {
             }
         }
         
-        game(board,
-             playerSelection: playerSelection,
-             cpuSelection: cpuSelection)
+        if game(board,
+                playerSelection: playerSelection,
+                cpuSelection: cpuSelection) {return}
     }
 }
